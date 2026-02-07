@@ -1,0 +1,22 @@
+// src/assets/styles/globals.scss
+@use './variables' as *;
+
+// Apply background colors based on theme
+body {
+  background-color: $background-light;
+  transition: background-color 0.3s ease;
+  
+  // This class will be added by ThemeProvider
+  &.dark-mode {
+    background-color: $background-dark;
+  }
+}
+
+// Cards, surfaces
+.mui-paper {
+  background-color: $background-light-paper;
+  
+  .dark-mode & {
+    background-color: $background-dark-paper;
+  }
+}
