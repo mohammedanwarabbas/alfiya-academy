@@ -1,7 +1,7 @@
-import { Box, Container, IconButton, Select, MenuItem, Typography, useTheme } from '@mui/material';
+import { Box, Container, IconButton, Select, useTheme } from '@mui/material';
 import { Facebook, Instagram, YouTube, Language } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { SOCIAL_LINKS, LANGUAGES } from '../../utils/constants';
+import { SOCIAL_LINKS } from '../../utils/constants';
 import { type SelectChangeEvent } from '@mui/material';
 
 export const Topbar = () => {
@@ -100,14 +100,7 @@ const handleLanguageChange = (event: SelectChangeEvent) => {
                 },
               }}
             >
-              {LANGUAGES.map((lang) => (
-                <MenuItem key={lang.code} value={lang.code}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Typography variant="body2">{lang.flag}</Typography>
-                    <Typography variant="body2">{lang.name}</Typography>
-                  </Box>
-                </MenuItem>
-              ))}
+             
             </Select>
           </Box>
         </Box>

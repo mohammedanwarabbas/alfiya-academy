@@ -39,8 +39,8 @@ import {
   Brightness4,
   Brightness7,
 } from '@mui/icons-material';
-import { useAuth } from '../../hooks/useAuth';
-import { useThemeMode } from '../../mui-themes/useThemeMode';
+// import { useAuth } from '../../hooks/useAuth';
+import { useThemeMode } from '../../theme/useThemeMode';
 import MediaAssets from '../../assets';
 import { NAVIGATION_CONFIG, ROLES } from '../../utils/constants';
 
@@ -50,7 +50,13 @@ export const Navbar = () => {
   const location = useLocation();
   const { toggleTheme, mode } = useThemeMode();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { user, logout, isGuest, isAdmin } = useAuth();
+  // const { user, logout, isGuest, isAdmin } = useAuth();
+const { user, logout, isGuest, isAdmin } = {
+  user: { firstName: "Alfiya", lastName:"banu",email:"abc@gc" },
+  logout: () => {},
+  isGuest: true,
+  isAdmin: false
+};
   // const { isStudent } = useAuth();
   
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
@@ -173,7 +179,7 @@ export const Navbar = () => {
               </Box>
 
               {/* Theme Toggle */}
-              <IconButton onClick={toggleTheme} color="inherit" sx={{ display: 'none' }}>
+              <IconButton onClick={toggleTheme} color="primary" sx={{ display: 'none' }}>
                 {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
               </IconButton>
 
@@ -199,7 +205,7 @@ export const Navbar = () => {
                 <>
                   <IconButton onClick={handleUserMenuOpen} size="small">
                     <Avatar
-                      src={user?.image}
+                      
                       alt={`${user?.firstName} ${user?.lastName}`}
                       sx={{ width: 40, height: 40 }}
                     >

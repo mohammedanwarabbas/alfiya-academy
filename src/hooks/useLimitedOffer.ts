@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from './useAuth';
+// import { useAuth } from './useAuth';
 
 export const useLimitedOfferPopup = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
-  const { isGuest } = useAuth();
+//   const { isGuest } = useAuth();
+const  isGuest  = true
 
   // Check session storage
   const getSessionFlag = () => {

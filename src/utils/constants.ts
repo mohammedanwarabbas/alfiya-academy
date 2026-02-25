@@ -2,155 +2,160 @@ export const ROLES = {
   GUEST: 'guest',
   STUDENT: 'student',
   ADMIN: 'admin',
-} as const; 
+} as const;
 
 export type UserRole = typeof ROLES[keyof typeof ROLES];
 
-// Navigation config for each role
+// ─── Navigation ───────────────────────────────────────────────────────────────
+
 export const NAVIGATION_CONFIG = {
-  // [ROLES.GUEST]: [
-  //   { label: 'Home', path: '/', icon: 'Home' },
-  //   { label: 'Courses', path: '/courses', icon: 'School' },
-  //   { label: 'Pricing', path: '/pricing', icon: 'AttachMoney' },
-  //   { label: 'About', path: '/about', icon: 'Info' },
-  //   { label: 'Contact', path: '/contact', icon: 'ContactMail' },
-  // ],
-    [ROLES.GUEST]: [
-    { label: 'Home', path: '/', icon: 'Home' },
-    { label: 'Chapters', path: '/chapters', icon: 'School' },
-    { label: 'Pricing', path: '/pricing', icon: 'AttachMoney' },
-    { label: 'About', path: '/about', icon: 'Info' },
-    { label: 'Contact', path: '/contact', icon: 'ContactMail' },
+  [ROLES.GUEST]: [
+    { label: 'Home',     path: '/',        icon: 'Home' },
+    { label: 'Course', path: '/mock/course', icon: 'MenuBook' },
+    // { label: 'Pricing',  path: '/pricing',  icon: 'AttachMoney' },
+    { label: 'About',    path: '/about',    icon: 'Info' },
+    { label: 'Contact',  path: '/contact',  icon: 'ContactMail' },
   ],
   [ROLES.STUDENT]: [
-    { label: 'Dashboard', path: '/dashboard', icon: 'Dashboard' },
-    { label: 'My Courses', path: '/my-courses', icon: 'Book' },
-    { label: 'Explore Courses', path: '/courses', icon: 'Explore' },
-    { label: 'Progress', path: '/progress', icon: 'TrendingUp' },
-    { label: 'Certificates', path: '/certificates', icon: 'CardMembership' },
+    { label: 'Dashboard',   path: '/dashboard',   icon: 'Dashboard' },
+    { label: 'Chapters',    path: '/chapters',    icon: 'MenuBook' },
+    { label: 'Progress',    path: '/progress',    icon: 'TrendingUp' },
+    { label: 'Certificate', path: '/certificate', icon: 'CardMembership' },
   ],
   [ROLES.ADMIN]: [
     { label: 'Dashboard', path: '/admin/dashboard', icon: 'Dashboard' },
-    { label: 'Courses', path: '/admin/courses', icon: 'School' },
-    { label: 'Users', path: '/admin/users', icon: 'People' },
+    { label: 'Chapters',  path: '/admin/chapters',  icon: 'MenuBook' },
+    { label: 'Users',     path: '/admin/users',     icon: 'People' },
     { label: 'Analytics', path: '/admin/analytics', icon: 'Analytics' },
-    { label: 'Content', path: '/admin/content', icon: 'VideoLibrary' },
+    { label: 'Publish',   path: '/admin/version',   icon: 'Publish' },
   ],
 };
 
-// Social media links
+// ─── Social Links ─────────────────────────────────────────────────────────────
+
 export const SOCIAL_LINKS = [
-  { platform: 'Facebook', url: 'https://facebook.com', icon: 'Facebook' },
+  { platform: 'Facebook',  url: 'https://facebook.com',  icon: 'Facebook' },
   { platform: 'Instagram', url: 'https://instagram.com', icon: 'Instagram' },
-  { platform: 'YouTube', url: 'https://youtube.com', icon: 'YouTube' },
+  { platform: 'YouTube',   url: 'https://youtube.com',   icon: 'YouTube' },
 ];
 
-// Language options
-export const LANGUAGES = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-];
-
-// User role mapping for dummy users
-export const DUMMY_USER_ROLES: Record<string, UserRole> = {
-  'emilys': ROLES.STUDENT,
-  'michaelw': ROLES.ADMIN,
-  // Add more as needed
-};
+// ─── App ──────────────────────────────────────────────────────────────────────
 
 export const APP_NAME = 'Alfiya Academy';
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-// API Base URL
-export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// ─── API ──────────────────────────────────────────────────────────────────────
 
-// API Endpoints
+export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export const API_ENDPOINTS = {
+
   AUTH: {
-    LOGIN: `${API_BASE}/api/auth/login`,
-    REGISTER: `${API_BASE}/api/auth/register`,
-    REFRESH_TOKEN: `${API_BASE}/api/auth/refresh`,
-    FORGOT_PASSWORD: `${API_BASE}/api/auth/forgot-password`,
-    RESET_PASSWORD: `${API_BASE}/api/auth/reset-password`,
+    REGISTER:        `${API_BASE}/api/v1/auth/register`,
+    VERIFY_EMAIL:    `${API_BASE}/api/v1/auth/verify-email`,
+    LOGIN:           `${API_BASE}/api/v1/auth/login`,
+    LOGOUT:          `${API_BASE}/api/v1/auth/logout`,
+    FORGOT_PASSWORD: `${API_BASE}/api/v1/auth/forgot-password`,
+    RESET_PASSWORD:  `${API_BASE}/api/v1/auth/reset-password`,
+    PROFILE:         `${API_BASE}/api/v1/auth/profile`,
   },
-  COURSES: {
-    LIST: `${API_BASE}/api/courses`,
-    FEATURED: `${API_BASE}/api/courses/featured`,
-    DETAIL: (id: string) => `${API_BASE}/api/courses/${id}`,
-    ENROLL: (id: string) => `${API_BASE}/api/courses/${id}/enroll`,
-    PROGRESS: (id: string) => `${API_BASE}/api/courses/${id}/progress`,
+
+  CONTENT: {
+    VERSION:                          `${API_BASE}/api/v1/content/version`,
+    CHAPTERS:                         `${API_BASE}/api/v1/content/chapters`,
+    LESSONS_BY_CHAPTER: (chapterId: string) =>
+                                      `${API_BASE}/api/v1/content/chapters/${chapterId}/lessons`,
+    LESSON_QUIZ: (lessonId: string) =>
+                                      `${API_BASE}/api/v1/content/lessons/${lessonId}/quiz`,
   },
-  CHAPTERS: {
-    LIST: (courseId: string) => `${API_BASE}/api/courses/${courseId}/chapters`,
-    DETAIL: (courseId: string, chapterId: string) => 
-      `${API_BASE}/api/courses/${courseId}/chapters/${chapterId}`,
+
+  VIDEO: {
+    SIGNED_ACCESS: (lessonId: string) => `${API_BASE}/api/v1/video/${lessonId}`,
   },
-  LESSONS: {
-    DETAIL: (courseId: string, chapterId: string, lessonId: string) =>
-      `${API_BASE}/api/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}`,
-    PROGRESS: (lessonId: string) => `${API_BASE}/api/lessons/${lessonId}/progress`,
-    VIDEO_SIGNED_URL: (lessonId: string) => `${API_BASE}/api/lessons/${lessonId}/video-url`,
+
+  QUIZ: {
+    SUBMIT: (lessonId: string) => `${API_BASE}/api/v1/content/lessons/${lessonId}/quiz`,
   },
-  QUIZZES: {
-    DETAIL: (lessonId: string) => `${API_BASE}/api/lessons/${lessonId}/quiz`,
-    SUBMIT: (quizId: string) => `${API_BASE}/api/quizzes/${quizId}/submit`,
-    ATTEMPTS: (quizId: string) => `${API_BASE}/api/quizzes/${quizId}/attempts`,
+
+  PROGRESS: {
+    GET_LESSON:    (lessonId: string) => `${API_BASE}/api/v1/progress/lesson/${lessonId}`,
+    UPDATE_LESSON: (lessonId: string) => `${API_BASE}/api/v1/progress/lesson/${lessonId}`,
   },
-  USERS: {
-    PROFILE: `${API_BASE}/api/users/profile`,
-    UPDATE_PROFILE: `${API_BASE}/api/users/profile`,
-    CHANGE_PASSWORD: `${API_BASE}/api/users/change-password`,
-    COURSES: `${API_BASE}/api/users/courses`,
-    CERTIFICATES: `${API_BASE}/api/users/certificates`,
-    PROGRESS: `${API_BASE}/api/users/progress`,
+
+  PAYMENT: {
+    CREATE_INTENT: `${API_BASE}/api/v1/payment/create-intent`,
+    WEBHOOK:       `${API_BASE}/api/v1/payment/webhook`,      // backend only, not called from frontend directly
   },
-  PAYMENTS: {
-    CREATE_CHECKOUT: `${API_BASE}/api/payments/checkout`,
-    VERIFY: (paymentId: string) => `${API_BASE}/api/payments/${paymentId}/verify`,
-    HISTORY: `${API_BASE}/api/payments/history`,
+
+  CERTIFICATE: {
+    GET: `${API_BASE}/api/v1/certificate`,
   },
+
   ADMIN: {
-    USERS: `${API_BASE}/api/admin/users`,
-    COURSES: `${API_BASE}/api/admin/courses`,
-    ANALYTICS: `${API_BASE}/api/admin/analytics`,
+    // Chapters
+    CHAPTERS:              `${API_BASE}/api/v1/admin/chapters`,
+    CHAPTER: (id: string) => `${API_BASE}/api/v1/admin/chapters/${id}`,
+
+    // Lessons
+    LESSONS:                           `${API_BASE}/api/v1/admin/lessons`,
+    LESSON:    (id: string) =>          `${API_BASE}/api/v1/admin/lessons/${id}`,
+    LESSONS_BY_CHAPTER: (chapterId: string) =>
+                                        `${API_BASE}/api/v1/admin/chapters/${chapterId}/lessons`,
+
+    // Quiz
+    QUIZ:                              `${API_BASE}/api/v1/admin/quiz`,
+    QUIZ_BY_LESSON: (lessonId: string) => `${API_BASE}/api/v1/admin/lessons/${lessonId}/quiz`,
+    QUIZ_QUESTIONS: (quizId: string) => `${API_BASE}/api/v1/admin/quiz/${quizId}/questions`,
+
+    // Version / Publish
+    VERSION_PUBLISH: `${API_BASE}/api/v1/admin/version/publish`,
+    VERSION_PREVIEW: `${API_BASE}/api/v1/admin/version/preview`,
+
+    // Users
+    USERS:               `${API_BASE}/api/v1/admin/users`,
+    USER: (id: string) => `${API_BASE}/api/v1/admin/users/${id}`,
   },
+
 } as const;
 
-// HTTP Methods
-export const HTTP_METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  PATCH: 'PATCH',
-  DELETE: 'DELETE',
-} as const;
+// ─── HTTP ─────────────────────────────────────────────────────────────────────
 
-// HTTP Status Codes (commonly used)
 export const HTTP_STATUS = {
-  OK: 200,
-  CREATED: 201,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
+  OK:                    200,
+  CREATED:               201,
+  BAD_REQUEST:           400,
+  UNAUTHORIZED:          401,
+  FORBIDDEN:             403,
+  NOT_FOUND:             404,
   INTERNAL_SERVER_ERROR: 500,
 } as const;
 
-// API Response Timeout (in milliseconds)
-export const API_TIMEOUT = 30000; // 30 seconds
+export const API_TIMEOUT = 30000;
 
-// Pagination defaults
+// ─── Pagination ───────────────────────────────────────────────────────────────
+
 export const PAGINATION_DEFAULTS = {
-  PAGE: 1,
-  LIMIT: 10,
+  PAGE:      1,
+  LIMIT:     10,
   MAX_LIMIT: 100,
 } as const;
 
-// Cache durations (in milliseconds)
+// ─── Progress ─────────────────────────────────────────────────────────────────
+
+export const PROGRESS = {
+  COMPLETE_PERCENT:   90,    // video is "watched" after 90%
+  HEARTBEAT_INTERVAL: 10000, // send heartbeat every 10 seconds (ms)
+} as const;
+
+// ─── Payment ──────────────────────────────────────────────────────────────────
+
+export const PAYMENT = {
+  CURRENCY: 'INR',
+} as const;
+
+// ─── Cache ────────────────────────────────────────────────────────────────────
+
 export const CACHE_DURATION = {
-  SHORT: 5 * 60 * 1000, // 5 minutes
-  MEDIUM: 30 * 60 * 1000, // 30 minutes
-  LONG: 24 * 60 * 60 * 1000, // 24 hours
+  SHORT:  5  * 60 * 1000,
+  MEDIUM: 30 * 60 * 1000,
+  LONG:   24 * 60 * 60 * 1000,
 } as const;

@@ -15,14 +15,13 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 // import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 import { loginSchema, type LoginFormData } from '../../utils/validators/auth.validators';
 
 export const LoginForm = () => {
+  const isLoading = false; // Replace with actual loading state from auth context or redux
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string>('');
 //   const navigate = useNavigate();
-  const { login, isLoading } = useAuth();
 
   const {
     register,
@@ -36,10 +35,10 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async () => {
     setError('');
     try {
-      await login(data.email, data.password);
+      
       // Navigation will be handled by auth state change
     } catch (err) {
       const errMessage = err instanceof Error ? err.message : 'Login failed. Please check your credentials.';

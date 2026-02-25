@@ -1,7 +1,10 @@
 // src/assets/styles/globals.scss
 @use './variables' as *;
 
-// Apply background colors based on theme
+*{
+  box-sizing: border-box;
+}
+
 body {
   background-color: $background-light;
   transition: background-color 0.3s ease;
@@ -12,7 +15,6 @@ body {
   }
 }
 
-// Cards, surfaces
 .mui-paper {
   background-color: $background-light-paper;
   

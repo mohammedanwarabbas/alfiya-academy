@@ -1,13 +1,13 @@
 import { Box, Container, Grid, Typography, Link, Divider, useTheme, Stack } from '@mui/material';
-import { useAuth } from '../../hooks/useAuth';
+// import { useAuth } from '../../hooks/useAuth';
 import MediaAssets from '../../assets';
 
 export const Footer = () => {
   const theme = useTheme();
   // const { user, isGuest, isStudent, isAdmin } = useAuth();
   ////////////////////
-  const { isStudent, isAdmin } = useAuth();
-  ////////////////////
+  // const { isStudent, isAdmin } = useAuth();
+  const {isStudent,isAdmin} = {isStudent:false,isAdmin:false}  ////////////////////
 
   // Get role-specific data
   const getFooterData = () => {

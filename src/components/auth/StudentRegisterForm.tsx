@@ -17,7 +17,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 // import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+// import { useAuth } from '../../hooks/useAuth';
 import { registerSchema, type RegisterFormData } from '../../utils/validators/auth.validators';
 
 // Country codes for dropdown
@@ -40,7 +40,8 @@ export const StudentRegisterForm = () => {
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
   // const navigate = useNavigate();
-  const { login, isLoading } = useAuth();
+  // const { login, isLoading } = useAuth();
+  const isLoading = false; // Replace with actual loading state from auth context or redux
 
   const {
     register,
@@ -63,7 +64,7 @@ export const StudentRegisterForm = () => {
 
   // const password = watch('password');
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async () => {
     setError('');
     setSuccess('');
     
@@ -74,7 +75,7 @@ export const StudentRegisterForm = () => {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Auto login after registration (in real app, this would be separate API)
-      await login(data.email, data.password);
+      // await login(data.email, data.password);
       
       setSuccess('Account created successfully! Redirecting...');
     } catch (err) {
@@ -234,7 +235,6 @@ export const StudentRegisterForm = () => {
         </Link>
         .
       </Typography>
-
       <Button
         type="submit"
         fullWidth
